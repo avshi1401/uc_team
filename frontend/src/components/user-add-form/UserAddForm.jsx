@@ -39,6 +39,8 @@ export function UserAddForm(props) {
             return false
         }
 
+        setError(null);
+
         return true
     }
 

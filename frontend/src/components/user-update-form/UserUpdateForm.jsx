@@ -39,6 +39,8 @@ export function UserUpdateForm(props) {
             return false
         }
 
+        setError(null);
+
         return true
     }
 

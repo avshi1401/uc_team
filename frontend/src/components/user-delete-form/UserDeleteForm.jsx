@@ -21,6 +21,8 @@ export function UserDeleteForm(props) {
             return false
         }
 
+        setError(null);
+
         return true
     }
 
