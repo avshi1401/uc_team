@@ -9,17 +9,7 @@ class MongoHandler:
     users_collection = db.users
 
     def get_all_users(self):
-        users = []
-        users_documents = self.users_collection.find()
-
-        for user_document in users_documents:
-            user = {
-                "userId": user_document.get("userId"),
-                "userName": user_document.get("userName"),
-                "userAge": user_document.get("userAge"),
-            }
-
-            users.append(user)
+        users = self.users_collection.find({}, {"_id": 0})
 
         return users
 

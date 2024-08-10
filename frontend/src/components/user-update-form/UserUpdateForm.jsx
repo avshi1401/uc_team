@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { fetchRequest } from '../../api'
 
 export function UserUpdateForm(props) {
-    const [error, setError] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
     const userIds = props.users.map(
         user => user.userId
     );
@@ -27,19 +28,19 @@ export function UserUpdateForm(props) {
             const name = fields[field].name;
 
             if (!value) {
-                setError(`${name} is required`);
+                setErrorMsg(`${name} is required`);
 
                 return false;
             }
         }
 
         if (!userIds.includes(fields.userId.value)) {
-            setError(`User ID: ${fields.userId.value} doesn't exists`);
+            setErrorMsg(`User ID: ${fields.userId.value} doesn't exists`);
 
             return false
         }
 
-        setError(null);
+        setErrorMsg(null);
 
         return true
     }
@@ -51,24 +52,26 @@ export function UserUpdateForm(props) {
         const userId = formData.get("userId");
 
         if (validateForm(formData)) {
-            fetch(
-                `http://127.0.0.1:5000/users/${userId}`,
-                {
-                    "method": "PUT",
-                    "headers": {
-                        "Content-Type": "application/json",
-                    },
-                    "body": JSON.stringify(Object.fromEntries(formData)),
-                }
+            const method = "PUT";
+            
+            fetchRequest(
+                method,
+                formData,
+                userId,
             ).then(
-                res => res.json(),
+                (res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throw new Error(res.statusText);
+                },
             ).then(
                 res => {
                     props.onUpdatedUser(res.user);
                 }
             ).catch(
-                e => {
-                    console.error(e);
+                error => {
+                    setErrorMsg(error.message);
                 }
             )
         }
@@ -77,7 +80,7 @@ export function UserUpdateForm(props) {
     return ( 
         <div>
             {
-                (error ? <span>{error}</span> : null)
+                (errorMsg ? <span>{errorMsg}</span> : null)
             }
             <form onSubmit={submit}>
                 <div className="form-div-input">

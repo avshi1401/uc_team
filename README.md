@@ -12,26 +12,26 @@ This project is a User Management System with a backend built using Flask and Mo
 ## Installation
 
 ### Backend
-    ```bash
+```bash
     cd backend
     python3 -m venv venv
     source venv/bin/activate
     pip install -r req.txt
     python main.py
-    ```
+```
 
 ### Frontend
-    ```bash
-    cd frontend
-    npm install
-    npm run dev
-    ```
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ### MongoDB
-    ```bash
-    sudo docker pull mongo:latest
-    sudo docker run -d -p 27017:27017 --name=mongo-container mongo:latest
-    ```
+```bash
+sudo docker pull mongo:latest
+sudo docker run -d -p 27017:27017 --name=mongo-container mongo:latest
+```
 
 ### Access:
-    Go to `http://localhost:5173/` and start!
+Go to `http://localhost:5173/` and start!

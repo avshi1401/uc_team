@@ -3,14 +3,25 @@ from flask_cors import CORS
 from marshmallow import ValidationError
 
 from db import MongoHandler
-from validations import UserSchema
+from validations import UserAddSchema, UserUpdateSchema, UserDeleteSchema
 
 app = Flask(__name__)
 cors = CORS(app)
+
+
 mongo_handler = MongoHandler()
 
+add_schema = UserAddSchema(
+    mongo_handler=mongo_handler,
+)
 
-schema = UserSchema()
+update_schema = UserUpdateSchema(
+    mongo_handler=mongo_handler,
+)
+
+delete_schema = UserDeleteSchema(
+    mongo_handler=mongo_handler,
+)
 
 
 @app.route('/users', methods=['GET'])
@@ -27,7 +38,7 @@ def get_users():
     
     except Exception as e:
         response = {
-            "error": str(e),
+            "error": "Internal Server Error",
         }
 
         response = jsonify(response)
@@ -38,11 +49,7 @@ def get_users():
 @app.route('/users', methods=['POST'])
 def add_user():
     try:
-        user_payload = request.json
-        user_payload['add'] = True
-
-        user_payload = schema.load(user_payload)
-        user_payload.pop('add')
+        user_payload = add_schema.load(request.json)
 
         user = mongo_handler.add_user(
             user_payload=user_payload,
@@ -67,7 +74,7 @@ def add_user():
 
     except Exception as e:
         response = {
-            "error": str(e),
+            "error": "Internal Server Error",
         }
 
         response = jsonify(response)
@@ -78,11 +85,7 @@ def add_user():
 @app.route('/users/<user_id>', methods=['PUT'])
 def update_user(user_id):
     try:
-        user_payload = request.json
-        user_payload['update'] = True
-
-        user_payload = schema.load(user_payload)
-        user_payload.pop('update')
+        user_payload = update_schema.load(request.json)
 
         updated_user = mongo_handler.update_user(
             user_id=user_id,
@@ -108,7 +111,7 @@ def update_user(user_id):
     
     except Exception as e:
         response = {
-            "error": str(e),
+            "error": "Internal Server Error",
         }
 
         response = jsonify(response)
@@ -119,6 +122,12 @@ def update_user(user_id):
 @app.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     try:
+        delete_payload = {
+            "userId": user_id,
+        }
+
+        delete_schema.load(delete_payload)
+
         deleted_user = mongo_handler.delete_user(
             user_id=user_id,
         )
@@ -132,7 +141,7 @@ def delete_user(user_id):
     
     except Exception as e:
         response = {
-            "error": str(e),
+            "error": "Internal Server Error",
         }
 
         response = jsonify(response)

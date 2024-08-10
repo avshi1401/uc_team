@@ -1,16 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import './UserList.css'
+import { fetchRequest } from '../../api'
 
 export function UserList(props) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    function clickExpandCollapse() {
+        setIsExpanded(!isExpanded);
+    }
+
     useEffect(
         () => {
-            fetch(
-                "http://127.0.0.1:5000/users",
-                {
-                    "method": "GET",
-                },
+            const method = "GET";
+            const body = null;
+            const userId = null;
+
+            fetchRequest(
+                method,
+                body,
+                userId,
             ).then(
-                res => res.json(),
+                (res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throw new Error(res.statusText);
+                },
             ).then(
                 res => {
                     props.onFetchedUsers(res.users);
@@ -26,14 +41,19 @@ export function UserList(props) {
     )
 
     return (
-        <div className="users-list-div">
-            <ul>
-                {
-                    props.users.map(
-                        user => <li key={user.userId}><strong>{ user.userId }:</strong> { user.userName }, { user.userAge }</li>
-                    )
-                }
-            </ul>
+        <div>
+            <div className="users-list-div">
+                <ul className={isExpanded ? 'ul-expanded' : ''}>
+                    {
+                        props.users.map(
+                            user => <li key={user.userId}><strong>{ user.userId }:</strong> { user.userName }, { user.userAge }</li>
+                        )
+                    }
+                </ul>
+            </div>
+            <button className="expand-collapse-btn" onClick={clickExpandCollapse}>
+                {isExpanded ? 'Collapse List' : 'Expand List'}
+            </button>
         </div>
     )
 }

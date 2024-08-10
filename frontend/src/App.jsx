@@ -40,8 +40,10 @@ function App() {
 
   return (
     <>
-      <h2>Users Page</h2>
-      <div>You can see the users list below.</div>
+      <div>
+        <h2>Users Page</h2>
+        <div>You can see the users list below.</div>
+      </div>
       <UserList users={users} onFetchedUsers={setUsers}></UserList>
       <div>You can use each one of the forms to add/update/delete any user you would like.</div>
       <div className="div-components">

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { fetchRequest } from '../../api'
 
 export function UserDeleteForm(props) {
-    const [error, setError] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
     const userIds = props.users.map(
         user => user.userId
     );
@@ -10,18 +11,18 @@ export function UserDeleteForm(props) {
         const userId = formData.get("userId");
 
         if (!userId) {
-            setError(`User ID is required`);
+            setErrorMsg(`User ID is required`);
 
             return false;
         }
 
         if (!userIds.includes(userId)) {
-            setError(`User ID: ${userId} doesn't exists`);
+            setErrorMsg(`User ID: ${userId} doesn't exists`);
 
             return false
         }
 
-        setError(null);
+        setErrorMsg(null);
 
         return true
     }
@@ -33,24 +34,27 @@ export function UserDeleteForm(props) {
         const userId = formData.get("userId");
 
         if (validateForm(formData)) {
-            fetch(
-                `http://127.0.0.1:5000/users/${userId}`,
-                {
-                    "method": "DELETE",
-                    "headers": {
-                        "Content-Type": "application/json",
-                    },
-                    "body": JSON.stringify(Object.fromEntries(formData)),
-                }
+            const method = "DELETE";
+            const body = null;
+
+            fetchRequest(
+                method,
+                body,
+                userId,
             ).then(
-                res => res.json(),
+                (res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    throw new Error(res.statusText);
+                },
             ).then(
                 res => {
                     props.onDeletedUser(res.user);
                 }
             ).catch(
-                e => {
-                    console.error(e);
+                error => {
+                    setErrorMsg(error.message);
                 }
             )
         }
@@ -59,7 +63,7 @@ export function UserDeleteForm(props) {
     return ( 
         <div>
             {
-                (error ? <span>{error}</span> : null)
+                (errorMsg ? <span>{errorMsg}</span> : null)
             }
             <form onSubmit={submit}>
                 <div className="form-div-input">
