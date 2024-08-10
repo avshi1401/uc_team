@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchRequest } from '../../api'
+import { fetchRequest } from '../../api';
 
 export function UserDeleteForm(props) {
     const [errorMsg, setErrorMsg] = useState(null);
@@ -19,12 +19,12 @@ export function UserDeleteForm(props) {
         if (!userIds.includes(userId)) {
             setErrorMsg(`User ID: ${userId} doesn't exists`);
 
-            return false
+            return false;
         }
 
         setErrorMsg(null);
 
-        return true
+        return true;
     }
 
     function submit(e) {
@@ -56,7 +56,7 @@ export function UserDeleteForm(props) {
                 error => {
                     setErrorMsg(error.message);
                 }
-            )
+            );
         }
     }
 
@@ -73,5 +73,5 @@ export function UserDeleteForm(props) {
                 <button type="submit">Delete</button>
             </form>
         </div>
-    )
+    );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import './UserList.css'
-import { fetchRequest } from '../../api'
+import './UserList.css';
+import { fetchRequest } from '../../api';
 
 export function UserList(props) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -35,10 +35,10 @@ export function UserList(props) {
                 error => {
                     console.error(error);
                 }
-            )
+            );
         },
         [],
-    )
+    );
 
     return (
         <div>
@@ -55,5 +55,5 @@ export function UserList(props) {
                 {isExpanded ? 'Collapse List' : 'Expand List'}
             </button>
         </div>
-    )
+    );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchRequest } from '../../api'
+import { fetchRequest } from '../../api';
 
 export function UserUpdateForm(props) {
     const [errorMsg, setErrorMsg] = useState(null);
@@ -21,7 +21,7 @@ export function UserUpdateForm(props) {
                 value: formData.get("userAge"),
                 name: "User Age"
             },
-        }
+        };
 
         for (const field in fields) {
             const value = fields[field].value;
@@ -37,12 +37,12 @@ export function UserUpdateForm(props) {
         if (!userIds.includes(fields.userId.value)) {
             setErrorMsg(`User ID: ${fields.userId.value} doesn't exists`);
 
-            return false
+            return false;
         }
 
         setErrorMsg(null);
 
-        return true
+        return true;
     }
 
     function submit(e) {
@@ -73,7 +73,7 @@ export function UserUpdateForm(props) {
                 error => {
                     setErrorMsg(error.message);
                 }
-            )
+            );
         }
     }
 
@@ -94,5 +94,5 @@ export function UserUpdateForm(props) {
                 <button type="submit">Update</button>
             </form>
         </div>
-    )
+    );
 }

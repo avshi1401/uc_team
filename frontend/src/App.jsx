@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { UserAddForm } from './components/user-add-form/UserAddForm'
-import { UserList } from './components/user-list/UserList'
-import { UserUpdateForm } from './components/user-update-form/UserUpdateForm'
-import { UserDeleteForm } from './components/user-delete-form/UserDeleteForm'
+import { useCallback, useEffect, useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+import { UserAddForm } from './components/user-add-form/UserAddForm';
+import { UserList } from './components/user-list/UserList';
+import { UserUpdateForm } from './components/user-update-form/UserUpdateForm';
+import { UserDeleteForm } from './components/user-delete-form/UserDeleteForm';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -14,9 +14,9 @@ function App() {
     (addedUser) => {
       setUsers(
         (prevUsers) => [...prevUsers, addedUser]
-      )
+      );
     }
-  )
+  );
 
   const onUpdatedUser = useCallback(
     (updatedUser) => {
@@ -24,9 +24,9 @@ function App() {
         (prevUsers) => prevUsers.map(
           user => user.userId === updatedUser.userId ? updatedUser : user
         )
-      )
+      );
     }
-  )
+  );
 
   const onDeletedUser = useCallback(
     (deletedUser) => {
@@ -34,9 +34,9 @@ function App() {
         (prevUsers) => prevUsers.filter(
           user => user.userId !== deletedUser.userId
         )
-      )
+      );
     }
-  )
+  );
 
   return (
     <>
@@ -52,7 +52,7 @@ function App() {
         <UserDeleteForm users={users} onDeletedUser={onDeletedUser}></UserDeleteForm>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

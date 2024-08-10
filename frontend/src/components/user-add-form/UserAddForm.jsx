@@ -21,7 +21,7 @@ export function UserAddForm(props) {
                 value: formData.get("userAge"),
                 name: "User Age"
             },
-        }
+        };
 
         for (const field in fields) {
             const value = fields[field].value;
@@ -37,12 +37,12 @@ export function UserAddForm(props) {
         if (userIds.includes(fields.userId.value)) {
             setErrorMsg(`User ID: ${fields.userId.value} already exists`);
             
-            return false
+            return false;
         }
 
         setErrorMsg(null);
 
-        return true
+        return true;
     }
 
     function submit(e) {
@@ -51,7 +51,7 @@ export function UserAddForm(props) {
         const formData = new FormData(e.target);
 
         if (validateForm(formData)) {
-            const method = "POST"
+            const method = "POST";
 
             fetchRequest(
                 method,
@@ -72,7 +72,7 @@ export function UserAddForm(props) {
                 error => {
                     setErrorMsg(error.message);
                 }
-            )
+            );
         }
     }
 
@@ -93,5 +93,5 @@ export function UserAddForm(props) {
                 <button type="submit">Add</button>
             </form>
         </div>
-    )
+    );
 }
