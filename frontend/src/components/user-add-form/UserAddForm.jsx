@@ -26,7 +26,7 @@ export function UserAddForm(props) {
             const value = fields[field].value;
             const name = fields[field].name;
 
-            if (!!!value) {
+            if (!value) {
                 setError(`${name} is required`);
 
                 return false;
@@ -77,7 +77,7 @@ export function UserAddForm(props) {
                 (error ? <span>{error}</span> : null)
             }
             <form onSubmit={submit}>
-                <div class="form-div-input">
+                <div className="form-div-input">
                     <label>User ID: </label>
                     <input name="userId" type="number"></input>
                     <label>User Name: </label>

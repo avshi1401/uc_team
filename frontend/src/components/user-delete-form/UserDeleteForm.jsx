@@ -9,7 +9,7 @@ export function UserDeleteForm(props) {
     function validateForm(formData) {
         const userId = formData.get("userId");
 
-        if (!!!userId) {
+        if (!userId) {
             setError(`User ID is required`);
 
             return false;
@@ -60,7 +60,7 @@ export function UserDeleteForm(props) {
                 (error ? <span>{error}</span> : null)
             }
             <form onSubmit={submit}>
-                <div class="form-div-input">
+                <div className="form-div-input">
                     <label>User ID: </label>
                     <input name="userId" type="number"></input>
                 </div>

@@ -44,7 +44,7 @@ function App() {
       <div>You can see the users list below.</div>
       <UserList users={users} onFetchedUsers={setUsers}></UserList>
       <div>You can use each one of the forms to add/update/delete any user you would like.</div>
-      <div class="div-components">
+      <div className="div-components">
         <UserAddForm users={users} onAddedUser={onAddedUser}></UserAddForm>
         <UserUpdateForm users={users} onUpdatedUser={onUpdatedUser}></UserUpdateForm>
         <UserDeleteForm users={users} onDeletedUser={onDeletedUser}></UserDeleteForm>

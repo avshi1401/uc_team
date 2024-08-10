@@ -26,7 +26,7 @@ export function UserList(props) {
     )
 
     return (
-        <div class="users-list-div">
+        <div className="users-list-div">
             <ul>
                 {
                     props.users.map(
