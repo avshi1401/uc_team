@@ -27,7 +27,7 @@ delete_schema = UserDeleteSchema(
 @app.route('/users', methods=['GET'])
 def get_users():
     try:
-        users = mongo_handler.get_all_users()
+        users = list(mongo_handler.get_all_users())
 
         response = {
             "users": users,
