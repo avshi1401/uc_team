@@ -58,13 +58,6 @@ export function UserAddForm(props) {
                 formData,
                 null,
             ).then(
-                (res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    throw new Error(res.statusText);
-                },
-            ).then(
                 res => {
                     props.onAddedUser(res.user);
                 }

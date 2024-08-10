@@ -20,13 +20,6 @@ export function UserList(props) {
                 body,
                 userId,
             ).then(
-                (res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    throw new Error(res.statusText);
-                },
-            ).then(
                 res => {
                     props.onFetchedUsers(res.users);
                 }

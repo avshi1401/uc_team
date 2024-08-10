@@ -59,13 +59,6 @@ export function UserUpdateForm(props) {
                 formData,
                 userId,
             ).then(
-                (res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    throw new Error(res.statusText);
-                },
-            ).then(
                 res => {
                     props.onUpdatedUser(res.user);
                 }

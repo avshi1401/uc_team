@@ -23,7 +23,15 @@ export function fetchRequest(method, body, userId) {
     const fetchPromise = fetch(
         fetchURL,
         options,
-    );
+    ).then(
+        (res) => {
+            if (!res.ok) {
+                throw new Error(res.statusText);
+            }
+
+            return res.json();
+        }
+    )
 
     return fetchPromise;
 }
