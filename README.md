@@ -13,11 +13,11 @@ This project is a User Management System with a backend built using Flask and Mo
 
 ### Backend
 ```bash
-    cd backend
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r req.txt
-    python main.py
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r req.txt
+python main.py
 ```
 
 ### Frontend
