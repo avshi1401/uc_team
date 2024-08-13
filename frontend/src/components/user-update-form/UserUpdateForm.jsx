@@ -34,12 +34,6 @@ export function UserUpdateForm(props) {
             }
         }
 
-        if (!userIds.includes(fields.userId.value)) {
-            setErrorMsg(`User ID: ${fields.userId.value} doesn't exists`);
-
-            return false;
-        }
-
         setErrorMsg(null);
 
         return true;
@@ -49,7 +43,6 @@ export function UserUpdateForm(props) {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        const userId = formData.get("userId");
 
         if (validateForm(formData)) {
             const method = "PUT";
@@ -57,7 +50,7 @@ export function UserUpdateForm(props) {
             fetchRequest(
                 method,
                 formData,
-                userId,
+                null,
             ).then(
                 res => {
                     props.onUpdatedUser(res.user);

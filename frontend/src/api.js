@@ -27,7 +27,11 @@ export function fetchRequest(method, body, userId) {
         ).then(
             (res) => {
                 if (!res.ok) {
-                    throw new Error(res.statusText);
+                    return res.json().then(
+                        json => {
+                            throw new Error(json.error);
+                        }
+                    )
                 }
 
                 return res.json();

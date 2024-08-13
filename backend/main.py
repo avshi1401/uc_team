@@ -64,8 +64,7 @@ def add_user():
     
     except ValidationError as e:
         response = {
-            "error": str(e),
-            "error_messages": e.messages
+            "error": e.messages['_schema'][0],
         }
 
         response = jsonify(response)
@@ -82,13 +81,12 @@ def add_user():
         return response, 500
 
 
-@app.route('/users/<user_id>', methods=['PUT'])
-def update_user(user_id):
+@app.route('/users', methods=['PUT'])
+def update_user():
     try:
         user_payload = update_schema.load(request.json)
 
         updated_user = mongo_handler.update_user(
-            user_id=user_id,
             user_payload=user_payload,
         )
 
@@ -101,8 +99,7 @@ def update_user(user_id):
     
     except ValidationError as e:
         response = {
-            "error": str(e),
-            "error_messages": e.messages
+            "error": e.messages['_schema'][0],
         }
 
         response = jsonify(response)
@@ -138,6 +135,13 @@ def delete_user(user_id):
         response = jsonify(response)
 
         return response, 200
+    
+    except ValidationError as e:
+        response = {
+            "error": e.messages['_schema'][0],
+        }
+
+        return response, 400
     
     except Exception as e:
         response = {

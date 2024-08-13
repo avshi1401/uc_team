@@ -16,12 +16,6 @@ export function UserDeleteForm(props) {
             return false;
         }
 
-        if (!userIds.includes(userId)) {
-            setErrorMsg(`User ID: ${userId} doesn't exists`);
-
-            return false;
-        }
-
         setErrorMsg(null);
 
         return true;

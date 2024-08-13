@@ -24,11 +24,9 @@ class MongoHandler:
 
         return new_user
 
-    def update_user(self, user_id, user_payload):
-        user_payload.pop("userId")
-
+    def update_user(self, user_payload):
         update_query = {
-            'userId': user_id,
+            'userId': user_payload.get("userId"),
         }
 
         update_changes = {
@@ -38,7 +36,7 @@ class MongoHandler:
         self.users_collection.update_one(update_query, update_changes)
 
         updated_user = {
-            "userId": user_id,
+            "userId": user_payload.get("userId"),
             "userName": user_payload.get("userName"),
             "userAge": user_payload.get("userAge"),
         }

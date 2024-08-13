@@ -34,12 +34,6 @@ export function UserAddForm(props) {
             }
         }
 
-        if (userIds.includes(fields.userId.value)) {
-            setErrorMsg(`User ID: ${fields.userId.value} already exists`);
-            
-            return false;
-        }
-
         setErrorMsg(null);
 
         return true;
